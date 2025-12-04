@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CamViewer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-item">
+            <webview id="view1" src="about:blank"></webview>
+            <div class="overlay">Cam 1</div>
+        </div>
+        <div class="grid-item">
+            <webview id="view2" src="about:blank"></webview>
+            <div class="overlay">Cam 2</div>
+        </div>
+        <div class="grid-item">
+            <webview id="view3" src="about:blank"></webview>
+            <div class="overlay">Cam 3</div>
+        </div>
+        <div class="grid-item">
+            <webview id="view4" src="about:blank"></webview>
+            <div class="overlay">Cam 4</div>
+        </div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html>
