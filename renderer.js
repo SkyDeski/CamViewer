@@ -30,19 +30,16 @@ function initWebviews() {
         document.getElementById('view4')
     ];
 
-    webviews.forEach((wv, index) => {
-        const url = config.urls[index];
-        if (url) {
-            console.log(`Loading URL for view${index + 1}: ${url}`);
-            // Use loadURL for better reliability
-            try {
-                wv.loadURL(url);
-            } catch (e) {
-                console.error(`Error loading URL ${url}:`, e);
-                wv.src = url; // Fallback
+    // Wait a bit for webviews to be ready
+    // Wait a bit for webviews to be ready
+    setTimeout(() => {
+        webviews.forEach((wv, index) => {
+            const url = config.urls[index];
+            if (url) {
+                wv.src = url;
             }
-        }
-    });
+        });
+    }, 1000);
 
     // Set up auto-refresh
     if (config.refreshInterval > 0) {
