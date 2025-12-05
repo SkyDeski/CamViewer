@@ -31,8 +31,16 @@ function initWebviews() {
     ];
 
     webviews.forEach((wv, index) => {
-        if (config.urls[index]) {
-            wv.src = config.urls[index];
+        const url = config.urls[index];
+        if (url) {
+            console.log(`Loading URL for view${index + 1}: ${url}`);
+            // Use loadURL for better reliability
+            try {
+                wv.loadURL(url);
+            } catch (e) {
+                console.error(`Error loading URL ${url}:`, e);
+                wv.src = url; // Fallback
+            }
         }
     });
 

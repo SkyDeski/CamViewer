@@ -32,20 +32,4 @@ webview {
     border: none;
 }
 
-.overlay {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    pointer-events: none; /* Let clicks pass through */
-    opacity: 0.5;
-    transition: opacity 0.3s;
-}
 
-.grid-item:hover .overlay {
-    opacity: 1;
-}
