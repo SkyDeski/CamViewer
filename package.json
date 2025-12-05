@@ -8,7 +8,7 @@
     "build": "electron-builder"
   },
   "keywords": [],
-  "author": "",
+  "author": "eduardoechegoyen@gmail.com",
   "license": "ISC",
   "devDependencies": {
     "electron": "^33.2.1",
