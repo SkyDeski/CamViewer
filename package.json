@@ -8,7 +8,10 @@
     "build": "electron-builder"
   },
   "keywords": [],
-  "author": "eduardoechegoyen@gmail.com",
+  "author": {
+    "name": "SkyDeski",
+    "email": "eduardoechegoyen@gmail.com"
+  },
   "license": "ISC",
   "devDependencies": {
     "electron": "^33.2.1",
