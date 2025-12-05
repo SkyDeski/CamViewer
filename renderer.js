@@ -1,28 +1,45 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
-// Load configuration
-const configPath = path.join(__dirname, 'config.json');
+// Config file path in user's home directory
+const configPath = path.join(os.homedir(), 'camviewer-config.json');
+
 let config = {
-    urls: [],
+    urls: [
+        "https://www.google.com",
+        "https://www.bing.com",
+        "https://www.wikipedia.org",
+        "https://www.github.com"
+    ],
     refreshInterval: 180
 };
+
+let refreshTimer = null;
 
 function loadConfig() {
     try {
         if (fs.existsSync(configPath)) {
             const data = fs.readFileSync(configPath, 'utf8');
-            config = JSON.parse(data);
-            console.log('Config loaded:', config);
+            const newConfig = JSON.parse(data);
+
+            // Validate basic structure
+            if (newConfig.urls && Array.isArray(newConfig.urls)) {
+                config = newConfig;
+                console.log('Config loaded:', config);
+                updateWebviews();
+            }
         } else {
-            console.warn('Config file not found, using defaults.');
+            // Create default config if it doesn't exist
+            console.log('Config file not found, creating default at:', configPath);
+            fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
         }
     } catch (err) {
         console.error('Error loading config:', err);
     }
 }
 
-function initWebviews() {
+function updateWebviews() {
     const webviews = [
         document.getElementById('view1'),
         document.getElementById('view2'),
@@ -30,30 +47,44 @@ function initWebviews() {
         document.getElementById('view4')
     ];
 
-    // Wait a bit for webviews to be ready
-    // Wait a bit for webviews to be ready
-    setTimeout(() => {
-        webviews.forEach((wv, index) => {
-            const url = config.urls[index];
-            if (url) {
-                wv.src = url;
-            }
-        });
-    }, 1000);
+    webviews.forEach((wv, index) => {
+        const url = config.urls[index];
+        if (url && wv.src !== url) {
+            console.log(`Updating view${index + 1} to: ${url}`);
+            wv.src = url;
+        }
+    });
 
-    // Set up auto-refresh
+    setupAutoRefresh();
+}
+
+function setupAutoRefresh() {
+    if (refreshTimer) {
+        clearInterval(refreshTimer);
+        refreshTimer = null;
+    }
+
     if (config.refreshInterval > 0) {
-        setInterval(() => {
+        console.log(`Setting up auto-refresh every ${config.refreshInterval} seconds`);
+        refreshTimer = setInterval(() => {
             console.log('Refreshing webviews...');
-            webviews.forEach(wv => {
-                wv.reload();
-            });
+            const webviews = document.querySelectorAll('webview');
+            webviews.forEach(wv => wv.reload());
         }, config.refreshInterval * 1000);
     }
 }
 
-// Initialize
-loadConfig();
+function init() {
+    loadConfig();
+
+    // Watch for file changes
+    fs.watchFile(configPath, (curr, prev) => {
+        console.log('Config file changed, reloading...');
+        loadConfig();
+    });
+}
+
 window.addEventListener('DOMContentLoaded', () => {
-    initWebviews();
+    // Initial load with a slight delay to ensure webviews are ready
+    setTimeout(init, 1000);
 });

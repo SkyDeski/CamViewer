@@ -43,9 +43,15 @@ Una vez descargado el archivo (por ejemplo, `CamViewer-1.0.0-armv7l.AppImage`):
 
 ## Configuración
 
-La aplicación lee la configuración del archivo `config.json`.
+La aplicación busca el archivo de configuración `camviewer-config.json` en la **carpeta de usuario** (Home Directory).
 
-**Nota:** Por defecto, la aplicación trae unas URLs de ejemplo. Para personalizarlas, debes modificar el archivo `config.json`.
+*   **Windows**: `C:\Users\TuUsuario\camviewer-config.json`
+*   **Raspberry Pi (Linux)**: `/home/pi/camviewer-config.json` (o `/home/tu_usuario/`)
+
+Si el archivo no existe, la aplicación lo creará automáticamente con valores por defecto al iniciarse.
+
+### Edición en Vivo
+La aplicación soporta **recarga en caliente**. Puedes editar el archivo `camviewer-config.json` mientras la aplicación está funcionando, y al guardar los cambios, las URLs y el tiempo de refresco se actualizarán automáticamente sin necesidad de reiniciar.
 
 El formato del archivo es el siguiente:
 
