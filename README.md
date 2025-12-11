@@ -86,8 +86,6 @@ Haz **clic derecho** sobre cualquier cámara para ver un menú con las siguiente
 *   **Zoom Out (-)**: Disminuye el zoom.
 *   **Reset Zoom**: Restablece el nivel de zoom al 100%.
 
-*   **urls**: Una lista de 4 direcciones web que quieres mostrar.
-*   **refreshInterval**: El tiempo en segundos para recargar las páginas automáticamente (180 segundos = 3 minutos). Ponlo en `0` para desactivar el auto-refresco.
 
 ## Desarrollo
 
