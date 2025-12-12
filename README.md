@@ -11,7 +11,9 @@ La aplicación está pensada para funcionar en modo "kiosco" (pantalla completa)
 *   **Auto-refresco**: Configurable para recargar las páginas automáticamente cada cierto tiempo (por defecto, 3 minutos).
 *   **Etiquetas Personalizables**: Puedes añadir un nombre a cada cámara para identificarla fácilmente.
 *   **Controles de Zoom y Recarga**: Haz clic derecho sobre cualquier cámara para acceder a un menú con opciones de Zoom y recarga individual.
-*   **Configuración Sencilla**: Las URLs y el intervalo de actualización se definen en un archivo JSON fácil de editar.
+*   **Editor de Configuración**: Modifica las URLs y etiquetas fácilmente desde un menú visual, sin editar archivos a mano.
+*   **Configuración Sencilla**: Los datos se guardan en un archivo JSON local.
+*   **Auto-Actualización**: La aplicación buscará y descargará nuevas versiones automáticamente al iniciarse.
 *   **Interfaz Oscura**: Diseño "Dark Mode" amigable para la vista en entornos de poca luz.
 
 ## Instalación en Raspberry Pi
@@ -43,19 +45,23 @@ Una vez descargado el archivo (por ejemplo, `CamViewer-1.0.7-armv7l.AppImage`):
     camviewer
     ```
 
+### Actualizaciones Automáticas
+La aplicación comprobará automáticamente si hay nuevas versiones al iniciarse. Si encuentra una actualización, te notificará para descargarla e instalarla.
+
 ## Configuración
 
-La aplicación busca el archivo de configuración `camviewer-config.json` en la **carpeta de usuario** (Home Directory).
+### Opción 1: Editor Visual (Recomendado)
+Haz **clic derecho** sobre cualquier cámara y selecciona **"⚙️ Edit Configuration"**.
+Se abrirá una ventana donde podrás escribir las URLs, los nombres de las cámaras y el tiempo de refresco. Al pulsar "Save", los cambios se aplicarán al instante.
 
+### Opción 2: Archivo JSON
+La aplicación guarda la configuración en el archivo `camviewer-config.json` en la **carpeta de usuario**.
 *   **Windows**: `C:\Users\TuUsuario\camviewer-config.json`
-*   **Raspberry Pi (Linux)**: `/home/pi/camviewer-config.json` (o `/home/tu_usuario/`)
+*   **Raspberry Pi (Linux)**: `/home/pi/camviewer-config.json`
 
-Si el archivo no existe, la aplicación lo creará automáticamente con valores por defecto al iniciarse.
+Puedes editar este archivo manualmente si lo prefieres. La aplicación soporta **recarga en caliente**, por lo que al guardar el archivo, los cambios se verán reflejados inmediatamente.
 
-### Edición en Vivo
-La aplicación soporta **recarga en caliente**. Puedes editar el archivo `camviewer-config.json` mientras la aplicación está funcionando, y al guardar los cambios, las URLs, etiquetas y el tiempo de refresco se actualizarán automáticamente sin necesidad de reiniciar.
-
-El formato del archivo es el siguiente:
+El formato del archivo es:
 
 ```json
 {
@@ -75,16 +81,15 @@ El formato del archivo es el siguiente:
 }
 ```
 
-*   **urls**: Una lista de 4 direcciones web que quieres mostrar.
-*   **labels**: (Opcional) Una lista de 4 nombres para identificar cada cámara. Aparecerán superpuestos en la esquina superior izquierda.
-*   **refreshInterval**: El tiempo en segundos para recargar las páginas automáticamente (180 segundos = 3 minutos). Ponlo en `0` para desactivar el auto-refresco.
+*   **urls**: Lista de 4 direcciones web.
+*   **labels**: Lista de 4 nombres para identificar cada cámara.
+*   **refreshInterval**: Tiempo en segundos para auto-recargar (0 para desactivar).
 
-### Menú Contextual (Clic Derecho)
-Haz **clic derecho** sobre cualquier cámara para ver un menú con las siguientes opciones:
-*   **Reload Camera**: Recarga esa cámara individualmente (útil si se ha quedado congelada o ha perdido conexión).
-*   **Zoom In (+)**: Aumenta el zoom de esa cámara específica.
-*   **Zoom Out (-)**: Disminuye el zoom.
-*   **Reset Zoom**: Restablece el nivel de zoom al 100%.
+### Menú Contextual
+Haz **clic derecho** sobre cualquier cámara para ver opciones adicionales:
+*   **⚙️ Edit Configuration**: Abre el editor visual.
+*   **Reload Camera**: Recarga esa cámara individualmente.
+*   **Zoom In/Out/Reset**: Controla el nivel de zoom de esa cámara.
 
 
 ## Desarrollo
