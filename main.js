@@ -36,6 +36,9 @@ autoUpdater.logger = {
   error: (msg) => logToFile(`[Updater ERROR] ${msg}`)
 };
 
+// Disable code signature verification for unsigned updates
+autoUpdater.verifyUpdateCodeSignature = false;
+
 autoUpdater.on('checking-for-update', () => {
   logToFile('Checking for updates...');
 });

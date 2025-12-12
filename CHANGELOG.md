@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.13] - 2025-12-12
+### Fixed
+- **Windows Auto-Update**: Disabled code signature verification to allow auto-updates from GitHub without a paid certificate.
+
 ## [1.0.12] - 2025-12-12
 ### Added
 - **Configuration Editor**: New graphical interface to edit URLs, labels, and refresh interval. Accessible via "Edit Configuration" in the right-click menu.
