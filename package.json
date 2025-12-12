@@ -1,6 +1,6 @@
 {
   "name": "camviewer",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Raspberry Pi Camera Viewer",
   "main": "main.js",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "electron": "^33.2.1",
+    "electron": "^39.2.6",
     "electron-builder": "^26.0.12"
   },
   "build": {
