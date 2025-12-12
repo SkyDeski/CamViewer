@@ -1,6 +1,6 @@
 {
   "name": "camviewer",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Raspberry Pi Camera Viewer",
   "main": "main.js",
   "scripts": {
@@ -25,6 +25,11 @@
         "deb"
       ],
       "category": "Utility"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
     },
     "publish": [
       "github"

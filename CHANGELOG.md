@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.11] - 2025-12-12
+### Added
+- **Windows Support**: Added build configuration to generate Windows installers (`.exe`) alongside Linux builds.
+
 ## [1.0.10] - 2025-12-12
 ### Security
 - Updated `electron` to latest version to resolve security vulnerabilities.

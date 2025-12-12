@@ -10,7 +10,11 @@ permissions:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Check out Git repository
@@ -25,16 +29,27 @@ jobs:
         run: npm install
 
       - name: Build for Linux (ARM)
+        if: matrix.os == 'ubuntu-latest'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run build -- --linux --armv7l --arm64
 
+      - name: Build for Windows
+        if: matrix.os == 'windows-latest'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run build -- --win
+
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: |
             dist/*.AppImage
             dist/*.deb
             dist/*.snap
+            dist/*.exe
             dist/*.yml
+            dist/*.blockmap
