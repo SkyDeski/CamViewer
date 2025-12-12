@@ -1,6 +1,7 @@
 {
   "name": "camviewer",
-  "version": "1.0.16",
+  "productName": "CamViewer",
+  "version": "1.0.17",
   "description": "Raspberry Pi Camera Viewer",
   "main": "main.js",
   "scripts": {
@@ -30,7 +31,8 @@
     "win": {
       "target": [
         "nsis"
-      ]
+      ],
+      "artifactName": "${productName}-Setup-${version}.${ext}"
     },
     "publish": [
       "github"

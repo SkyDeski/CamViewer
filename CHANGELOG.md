@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.17] - 2025-12-12
+### Fixed
+- **Auto-Update Filenames**: Enforced URL-safe filenames (using dashes instead of spaces) for Windows installers to prevent download errors during auto-update.
+
 ## [1.0.16] - 2025-12-12
 ### Added
 - **Test Release**: Dummy version 2 to verify auto-update functionality.
