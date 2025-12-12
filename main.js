@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 const { Menu, ipcMain } = require('electron');
+const { autoUpdater } = require('electron-updater');
 
 // Setup Logging
 const logPath = path.join(os.homedir(), 'camviewer.log');
@@ -24,6 +25,48 @@ process.on('uncaughtException', (error) => {
   logToFile(`UNCAUGHT EXCEPTION: ${error.stack}`);
   dialog.showErrorBox('Critical Error', `A critical error occurred:\n${error.message}\n\nPlease check ${logPath}`);
   app.quit();
+});
+
+// Configure Auto Updater
+autoUpdater.logger = {
+  info: (msg) => logToFile(`[Updater] ${msg}`),
+  warn: (msg) => logToFile(`[Updater WARN] ${msg}`),
+  error: (msg) => logToFile(`[Updater ERROR] ${msg}`)
+};
+
+autoUpdater.on('checking-for-update', () => {
+  logToFile('Checking for updates...');
+});
+
+autoUpdater.on('update-available', (info) => {
+  logToFile(`Update available: ${info.version}`);
+});
+
+autoUpdater.on('update-not-available', (info) => {
+  logToFile('Update not available.');
+});
+
+autoUpdater.on('error', (err) => {
+  logToFile(`Error in auto-updater: ${err}`);
+});
+
+autoUpdater.on('download-progress', (progressObj) => {
+  let log_message = "Download speed: " + progressObj.bytesPerSecond;
+  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+  logToFile(log_message);
+});
+
+autoUpdater.on('update-downloaded', (info) => {
+  logToFile('Update downloaded');
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'Update Ready',
+    message: 'A new version has been downloaded. the application will quit and install the update now.',
+    buttons: ['Restart']
+  }).then((returnValue) => {
+    if (returnValue.response === 0) autoUpdater.quitAndInstall();
+  });
 });
 
 logToFile('Starting CamViewer...');
@@ -63,6 +106,10 @@ function createWindow() {
 app.whenReady().then(() => {
   logToFile('App Ready');
   createWindow();
+  
+  // Check for updates
+  logToFile('Checking for updates (autoUpdater)...');
+  autoUpdater.checkForUpdatesAndNotify();
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
