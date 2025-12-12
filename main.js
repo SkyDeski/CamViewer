@@ -7,6 +7,8 @@ const { autoUpdater } = require('electron-updater');
 
 // Setup Logging
 const logPath = path.join(os.homedir(), 'camviewer.log');
+// Config path for IPC access
+const configPath = path.join(os.homedir(), 'camviewer-config.json');
 
 function logToFile(message) {
   const timestamp = new Date().toISOString();
@@ -87,7 +89,7 @@ function createWindow() {
 
     logToFile('Loading index.html...');
     mainWindow.loadFile('index.html');
-    
+
     mainWindow.webContents.on('did-finish-load', () => {
       logToFile('Main window loaded successfully');
     });
@@ -103,10 +105,67 @@ function createWindow() {
   }
 }
 
+// Config Editor Window
+let configWindow = null;
+
+function createConfigWindow() {
+  if (configWindow) {
+    configWindow.focus();
+    return;
+  }
+
+  configWindow = new BrowserWindow({
+    width: 600,
+    height: 700,
+    title: 'Edit Configuration',
+    autoHideMenuBar: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
+
+  configWindow.loadFile('config.html');
+
+  configWindow.on('closed', () => {
+    configWindow = null;
+  });
+}
+
+// Config IPC Handlers
+ipcMain.on('open-config-editor', () => {
+  createConfigWindow();
+});
+
+ipcMain.on('get-config', (event) => {
+  try {
+    if (fs.existsSync(configPath)) {
+      const data = fs.readFileSync(configPath, 'utf8');
+      event.sender.send('config-data', JSON.parse(data));
+    } else {
+      event.sender.send('config-data', {});
+    }
+  } catch (e) {
+    logToFile(`Error reading config for editor: ${e.message}`);
+    event.sender.send('config-data', {});
+  }
+});
+
+ipcMain.on('save-config', (event, newConfig) => {
+  try {
+    fs.writeFileSync(configPath, JSON.stringify(newConfig, null, 2));
+    logToFile('Config updated via editor');
+    event.sender.send('save-success');
+  } catch (e) {
+    logToFile(`Error saving config: ${e.message}`);
+    dialog.showErrorBox('Save Error', 'Failed to save configuration.');
+  }
+});
+
 app.whenReady().then(() => {
   logToFile('App Ready');
   createWindow();
-  
+
   // Check for updates
   logToFile('Checking for updates (autoUpdater)...');
   autoUpdater.checkForUpdatesAndNotify();
@@ -123,6 +182,13 @@ app.on('window-all-closed', function () {
 
 ipcMain.on('show-context-menu', (event, params) => {
   const template = [
+    {
+      label: '⚙️ Edit Configuration',
+      click: () => {
+        createConfigWindow();
+      }
+    },
+    { type: 'separator' },
     {
       label: 'Reload Camera',
       click: () => {

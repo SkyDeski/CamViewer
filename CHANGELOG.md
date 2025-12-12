@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.12] - 2025-12-12
+### Added
+- **Configuration Editor**: New graphical interface to edit URLs, labels, and refresh interval. Accessible via "Edit Configuration" in the right-click menu.
+
 ## [1.0.11] - 2025-12-12
 ### Added
 - **Windows Support**: Added build configuration to generate Windows installers (`.exe`) alongside Linux builds.

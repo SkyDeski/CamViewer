@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Configuration - CamViewer</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        h2 {
+            margin-top: 0;
+            color: #ffffff;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #9cdcfe;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            background-color: #252526;
+            border: 1px solid #3c3c3c;
+            color: #ffffff;
+            border-radius: 4px;
+        }
+        input:focus {
+            outline: none;
+            border-color: #0e639c;
+        }
+        .help-text {
+            font-size: 0.85em;
+            color: #858585;
+            margin-top: 4px;
+        }
+        .section-title {
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: #c586c0;
+            border-left: 3px solid #c586c0;
+            padding-left: 10px;
+        }
+        .actions {
+            margin-top: 30px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+        }
+        button {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .btn-save {
+            background-color: #0e639c;
+            color: white;
+        }
+        .btn-save:hover {
+            background-color: #1177bb;
+        }
+        .btn-cancel {
+            background-color: #3e3e42;
+            color: white;
+        }
+        .btn-cancel:hover {
+            background-color: #4e4e52;
+        }
+        .grid-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>⚙️ Configuration</h2>
+
+    <form id="configForm">
+        
+        <div class="form-group">
+            <label for="refreshInterval">Auto-Refresh Interval (seconds)</label>
+            <input type="number" id="refreshInterval" min="0">
+            <div class="help-text">Set to 0 to disable automatic refreshing.</div>
+        </div>
+
+        <div class="section-title">Camera 1</div>
+        <div class="grid-inputs">
+            <div class="form-group">
+                <label for="url0">URL</label>
+                <input type="text" id="url0" placeholder="https://example.com">
+                <div class="help-text">Address of the camera stream or webpage.</div>
+            </div>
+            <div class="form-group">
+                <label for="label0">Label</label>
+                <input type="text" id="label0" placeholder="e.g. Front Door">
+                <div class="help-text">Name displayed over the camera view.</div>
+            </div>
+        </div>
+
+        <div class="section-title">Camera 2</div>
+        <div class="grid-inputs">
+            <div class="form-group">
+                <label for="url1">URL</label>
+                <input type="text" id="url1">
+            </div>
+            <div class="form-group">
+                <label for="label1">Label</label>
+                <input type="text" id="label1">
+            </div>
+        </div>
+
+        <div class="section-title">Camera 3</div>
+        <div class="grid-inputs">
+            <div class="form-group">
+                <label for="url2">URL</label>
+                <input type="text" id="url2">
+            </div>
+            <div class="form-group">
+                <label for="label2">Label</label>
+                <input type="text" id="label2">
+            </div>
+        </div>
+
+        <div class="section-title">Camera 4</div>
+        <div class="grid-inputs">
+            <div class="form-group">
+                <label for="url3">URL</label>
+                <input type="text" id="url3">
+            </div>
+            <div class="form-group">
+                <label for="label3">Label</label>
+                <input type="text" id="label3">
+            </div>
+        </div>
+
+        <div class="actions">
+            <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
+            <button type="button" class="btn-save" id="saveBtn">Save Changes</button>
+        </div>
+    </form>
+
+    <script src="config.js"></script>
+</body>
+</html>
