@@ -95,48 +95,55 @@ function setupAutoRefresh() {
     }
 }
 
+// Initialize
 function init() {
-    loadConfig();
-
-    const { ipcRenderer } = require('electron');
-
-    const webviews = document.querySelectorAll('webview');
-    webviews.forEach((wv, index) => {
-        // Context Menu
-        wv.addEventListener('context-menu', (e) => {
-            e.preventDefault();
-            // Send coordinates and webview index or ID to main process
-            ipcRenderer.send('show-context-menu', { id: wv.id });
-        });
-    });
-
-    // Listen for commands from main process
-    ipcRenderer.on('context-menu-command', (event, command) => {
-        const { id, action } = command;
-        const wv = document.getElementById(id);
-        if (!wv) return;
-
-        switch (action) {
-            case 'reload':
-                wv.reload();
-                break;
-            case 'zoom-in':
-                wv.setZoomLevel(wv.getZoomLevel() + 0.5);
-                break;
-            case 'zoom-out':
-                wv.setZoomLevel(wv.getZoomLevel() - 0.5);
-                break;
-            case 'zoom-reset':
-                wv.setZoomLevel(0);
-                break;
-        }
-    });
-
-    // Watch for file changes
-    fs.watchFile(configPath, (curr, prev) => {
-        console.log('Config file changed, reloading...');
+    try {
+        console.log('Renderer init started');
         loadConfig();
-    });
+
+        const { ipcRenderer } = require('electron');
+
+        const webviews = document.querySelectorAll('webview');
+        webviews.forEach((wv, index) => {
+            // Context Menu
+            wv.addEventListener('context-menu', (e) => {
+                e.preventDefault();
+                // Send coordinates and webview index or ID to main process
+                ipcRenderer.send('show-context-menu', { id: wv.id });
+            });
+        });
+
+        // Listen for commands from main process
+        ipcRenderer.on('context-menu-command', (event, command) => {
+            const { id, action } = command;
+            const wv = document.getElementById(id);
+            if (!wv) return;
+
+            switch (action) {
+                case 'reload':
+                    wv.reload();
+                    break;
+                case 'zoom-in':
+                    wv.setZoomLevel(wv.getZoomLevel() + 0.5);
+                    break;
+                case 'zoom-out':
+                    wv.setZoomLevel(wv.getZoomLevel() - 0.5);
+                    break;
+                case 'zoom-reset':
+                    wv.setZoomLevel(0);
+                    break;
+            }
+        });
+
+        // Watch for file changes
+        fs.watchFile(configPath, (curr, prev) => {
+            console.log('Config file changed, reloading...');
+            loadConfig();
+        });
+    } catch (e) {
+        console.error('Critical error in renderer init:', e);
+        alert('Critical error initializing app: ' + e.message);
+    }
 }
 
 window.addEventListener('DOMContentLoaded', () => {
