@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.14] - 2025-12-12
+### Added
+- **Test Release**: Dummy version to verify auto-update functionality on Windows.
+
 ## [1.0.13] - 2025-12-12
 ### Fixed
 - **Windows Auto-Update**: Disabled code signature verification to allow auto-updates from GitHub without a paid certificate.
