@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.15] - 2025-12-12
+### Fixed
+- **Auto-Update Configuration**: Added missing `repository` field to `package.json` to ensure the updater knows where to fetch updates from.
+
 ## [1.0.14] - 2025-12-12
 ### Added
 - **Test Release**: Dummy version to verify auto-update functionality on Windows.

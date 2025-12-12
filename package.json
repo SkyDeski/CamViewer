@@ -1,12 +1,13 @@
 {
   "name": "camviewer",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Raspberry Pi Camera Viewer",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
   },
+  "repository": "github:SkyDeski/CamViewer",
   "keywords": [],
   "author": {
     "name": "SkyDeski",
