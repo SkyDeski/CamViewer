@@ -36,6 +36,9 @@ autoUpdater.logger = {
   error: (msg) => logToFile(`[Updater ERROR] ${msg}`)
 };
 
+// Flag to track if update check was manual
+let isManualCheck = false;
+
 // Disable code signature verification for unsigned updates
 autoUpdater.verifyUpdateCodeSignature = false;
 
@@ -45,14 +48,28 @@ autoUpdater.on('checking-for-update', () => {
 
 autoUpdater.on('update-available', (info) => {
   logToFile(`Update available: ${info.version}`);
+  isManualCheck = false; // Reset flag as standard flow takes over
 });
 
 autoUpdater.on('update-not-available', (info) => {
   logToFile('Update not available.');
+  if (isManualCheck) {
+    dialog.showMessageBox({
+      type: 'info',
+      title: 'Sin actualizaciones',
+      message: 'Actualmente tienes la última versión instalada.',
+      buttons: ['OK']
+    });
+    isManualCheck = false;
+  }
 });
 
 autoUpdater.on('error', (err) => {
   logToFile(`Error in auto-updater: ${err}`);
+  if (isManualCheck) {
+    dialog.showErrorBox('Error de Actualización', 'Hubo un error al buscar actualizaciones. Revisa el log para más detalles.');
+    isManualCheck = false;
+  }
 });
 
 autoUpdater.on('download-progress', (progressObj) => {
@@ -189,6 +206,14 @@ ipcMain.on('show-context-menu', (event, params) => {
       label: '⚙️ Editar Configuración',
       click: () => {
         createConfigWindow();
+      }
+    },
+    { type: 'separator' },
+    {
+      label: 'Buscar Actualizaciones',
+      click: () => {
+        isManualCheck = true;
+        autoUpdater.checkForUpdates();
       }
     },
     { type: 'separator' },

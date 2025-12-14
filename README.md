@@ -87,10 +87,11 @@ El formato del archivo es:
 
 ### Menú Contextual
 Haz **clic derecho** sobre cualquier cámara para ver opciones adicionales:
-*   **⚙️ Edit Configuration**: Abre el editor visual.
-*   **Reload Camera**: Recarga esa cámara individualmente.
-*   **Zoom In/Out/Reset**: Controla el nivel de zoom de esa cámara.
-*   **Exit CamViewer**: Cierra la aplicación (útil cuando está en pantalla completa).
+*   **⚙️ Editar Configuración**: Abre el editor visual.
+*   **Buscar Actualizaciones**: Comprueba manualmente si hay nuevas versiones.
+*   **Recargar Cámara**: Recarga esa cámara individualmente.
+*   **Acercar/Alejar/Restablecer Zoom**: Controla el nivel de zoom de esa cámara.
+*   **Salir de CamViewer**: Cierra la aplicación (útil cuando está en pantalla completa).
 
 
 ## Desarrollo

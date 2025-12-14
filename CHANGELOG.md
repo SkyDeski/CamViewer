@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.20] - 2025-12-14
+### Added
+- **Context Menu**: Added "Buscar Actualizaciones" option to manually check for updates, with user feedback.
+
 ## [1.0.19] - 2025-12-14
 ### Changed
 - **Localization**: Full translation of the application to Spanish (Spain).
