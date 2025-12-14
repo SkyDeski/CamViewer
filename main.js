@@ -216,6 +216,13 @@ ipcMain.on('show-context-menu', (event, params) => {
       click: () => {
         event.sender.send('context-menu-command', { id: params.id, action: 'zoom-reset' });
       }
+    },
+    { type: 'separator' },
+    {
+      label: 'Exit CamViewer',
+      click: () => {
+        app.quit();
+      }
     }
   ];
   const menu = Menu.buildFromTemplate(template);

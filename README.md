@@ -90,6 +90,7 @@ Haz **clic derecho** sobre cualquier cámara para ver opciones adicionales:
 *   **⚙️ Edit Configuration**: Abre el editor visual.
 *   **Reload Camera**: Recarga esa cámara individualmente.
 *   **Zoom In/Out/Reset**: Controla el nivel de zoom de esa cámara.
+*   **Exit CamViewer**: Cierra la aplicación (útil cuando está en pantalla completa).
 
 
 ## Desarrollo

@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.18] - 2025-12-14
+### Added
+- **Context Menu**: Added "Exit CamViewer" option to easily close the application from full-screen mode.
+
 ## [1.0.17] - 2025-12-12
 ### Fixed
 - **Auto-Update Filenames**: Enforced URL-safe filenames (using dashes instead of spaces) for Windows installers to prevent download errors during auto-update.
