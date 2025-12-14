@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.21] - 2025-12-14
+### Fixed
+- **Zoom Independence**: Isolated camera sessions using partitions. This allows independent zooming for each camera view, even if they share the same URL/domain.
+
 ## [1.0.20] - 2025-12-14
 ### Added
 - **Context Menu**: Added "Buscar Actualizaciones" option to manually check for updates, with user feedback.

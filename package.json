@@ -1,7 +1,7 @@
 {
   "name": "camviewer",
   "productName": "CamViewer",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Raspberry Pi Camera Viewer",
   "main": "main.js",
   "scripts": {
