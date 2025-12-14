@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.19] - 2025-12-14
+### Changed
+- **Localization**: Full translation of the application to Spanish (Spain).
+    - Translated context menu items (Recargar, Acercar/Alejar, Salir).
+    - Translated configuration editor (titles, labels, buttons).
+    - Translated application dialogs and error messages.
+
 ## [1.0.18] - 2025-12-14
 ### Added
 - **Context Menu**: Added "Exit CamViewer" option to easily close the application from full-screen mode.

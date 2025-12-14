@@ -66,9 +66,9 @@ autoUpdater.on('update-downloaded', (info) => {
   logToFile('Update downloaded');
   dialog.showMessageBox({
     type: 'info',
-    title: 'Update Ready',
-    message: 'A new version has been downloaded. the application will quit and install the update now.',
-    buttons: ['Restart']
+    title: 'Actualización Lista',
+    message: 'Se ha descargado una nueva versión. La aplicación se cerrará y se instalará ahora.',
+    buttons: ['Reiniciar']
   }).then((returnValue) => {
     if (returnValue.response === 0) autoUpdater.quitAndInstall();
   });
@@ -120,7 +120,7 @@ function createConfigWindow() {
   configWindow = new BrowserWindow({
     width: 600,
     height: 700,
-    title: 'Edit Configuration',
+    title: 'Editar Configuración',
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
@@ -161,7 +161,7 @@ ipcMain.on('save-config', (event, newConfig) => {
     event.sender.send('save-success');
   } catch (e) {
     logToFile(`Error saving config: ${e.message}`);
-    dialog.showErrorBox('Save Error', 'Failed to save configuration.');
+    dialog.showErrorBox('Error al Guardar', 'Fallo al guardar la configuración.');
   }
 });
 
@@ -186,40 +186,40 @@ app.on('window-all-closed', function () {
 ipcMain.on('show-context-menu', (event, params) => {
   const template = [
     {
-      label: '⚙️ Edit Configuration',
+      label: '⚙️ Editar Configuración',
       click: () => {
         createConfigWindow();
       }
     },
     { type: 'separator' },
     {
-      label: 'Reload Camera',
+      label: 'Recargar Cámara',
       click: () => {
         event.sender.send('context-menu-command', { id: params.id, action: 'reload' });
       }
     },
     { type: 'separator' },
     {
-      label: 'Zoom In (+)',
+      label: 'Acercar (+)',
       click: () => {
         event.sender.send('context-menu-command', { id: params.id, action: 'zoom-in' });
       }
     },
     {
-      label: 'Zoom Out (-)',
+      label: 'Alejar (-)',
       click: () => {
         event.sender.send('context-menu-command', { id: params.id, action: 'zoom-out' });
       }
     },
     {
-      label: 'Reset Zoom',
+      label: 'Restablecer Zoom',
       click: () => {
         event.sender.send('context-menu-command', { id: params.id, action: 'zoom-reset' });
       }
     },
     { type: 'separator' },
     {
-      label: 'Exit CamViewer',
+      label: 'Salir de CamViewer',
       click: () => {
         app.quit();
       }

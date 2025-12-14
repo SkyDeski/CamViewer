@@ -142,7 +142,7 @@ function init() {
         });
     } catch (e) {
         console.error('Critical error in renderer init:', e);
-        alert('Critical error initializing app: ' + e.message);
+        alert('Error crítico inicializando la aplicación: ' + e.message);
     }
 }
 

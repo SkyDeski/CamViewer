@@ -53,6 +53,6 @@ cancelBtn.addEventListener('click', () => {
 
 // Close on Success
 ipcRenderer.on('save-success', () => {
-    alert('Configuration saved successfully!');
+    alert('¡Configuración guardada correctamente!');
     window.close();
 });
